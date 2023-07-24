@@ -1,7 +1,7 @@
 defmodule BananaBank.Repo.Migrations.AddUsersTable do
   use Ecto.Migration
 
-  # Criando a primeira tabela do nosso banco.
+  # Criando a primeira tabela no nosso banco.
   def change do
     create table("users") do
       add :name, :string,  null: false
