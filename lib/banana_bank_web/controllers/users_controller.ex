@@ -2,26 +2,16 @@ defmodule BananaBankWeb.UsersController do
   use BananaBankWeb, :controller
 
   alias BananaBank.Users.Create
+  alias BananaBank.Users.User
+
+  action_fallback BananaBankWeb.FallbackController
 
   # Função para criar rota de usuário.
   def create(conn, params) do
-    params
-    |> Create.call()
-    |> handle_response(conn)
-  end
-
-  # Função para renderizar nossa reposta caso dê tudo certo.
-  defp handle_response({:ok, user}, conn) do
-    conn
-    |> put_status(:created)
-    |> render(:create, user: user)
-  end
-
-  # Função para tratar caso dê erro na nossa rota.
-  defp handle_response({:error, changeset}, conn) do
-    conn
-    |> put_status(:bad_request)
-    |> put_view(json: BananaBankWeb.ErrorJSON)
-    |> render(:error, changeset: changeset)
+    with {:ok, %User{} = user} <- Create.call(params) do
+      conn
+      |> put_status(:created)
+      |> render(:create, user: user)
+    end
   end
 end
