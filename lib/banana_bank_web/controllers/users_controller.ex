@@ -14,4 +14,13 @@ defmodule BananaBankWeb.UsersController do
       |> render(:create, user: user)
     end
   end
+
+  # Função para criar rota de usuário.
+  def show(conn, %{"id" => id}) do
+    with {:ok, %User{} = user} <- Users.get(id) do
+      conn
+      |> put_status(:ok)
+      |> render(:get, user: user)
+    end
+  end
 end
