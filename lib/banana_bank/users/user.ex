@@ -5,13 +5,13 @@ defmodule BananaBank.Users.User do
   alias Ecto.Changeset
 
   # Variavél de módulo.
-  @required_params [:name, :password, :email, :cep]
+  @required_params_create [:name, :password, :email, :cep]
+  @required_params_update [:name, :email, :cep]
 
-  # Espelho para nossa tabela
+  # Espelho para nossa tabela.
   schema "users" do
     field :name, :string
-    # Campo Virtual
-    field :password, :string, virtual: true
+    field :password, :string, virtual: true # Campo Virtual
     field :password_hash, :string
     field :email, :string
     field :cep, :string
@@ -19,15 +19,29 @@ defmodule BananaBank.Users.User do
     timestamps()
   end
 
-  # Função para mudanças no nosso banco.
-  def changeset(user \\ %__MODULE__{}, params) do
+  # Função para mudanças no nosso banco no create.
+  def changeset(params) do
+    %__MODULE__{}
+    |> cast(params, @required_params_create)
+    |> do_validations(@required_params_create)
+    |> add_password_hash()
+  end
+
+  # Função para mudanças no nosso banco no update.
+  def changeset(user, params) do
     user
-    |> cast(params, @required_params)
-    |> validate_required(@required_params)
+    |> cast(params, @required_params_create)
+    |> validate_required(@required_params_update)
+    |> add_password_hash()
+  end
+
+  # Função para validar as infomações dos campos preencidos.
+  defp do_validations(changeset, fields) do
+    changeset
+    |> validate_required(fields)
     |> validate_length(:name, min: 3)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:cep, is: 8)
-    |> add_password_hash()
   end
 
   # Função privada para criptografia.
