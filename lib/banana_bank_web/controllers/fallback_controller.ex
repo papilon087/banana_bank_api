@@ -16,5 +16,4 @@ defmodule BananaBankWeb.FallbackController do
     |> put_view(json: BananaBankWeb.ErrorJSON)
     |> render(:error, changeset: changeset)
   end
-
 end

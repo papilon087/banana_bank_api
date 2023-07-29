@@ -15,6 +15,15 @@ defmodule BananaBankWeb.UsersController do
     end
   end
 
+  # Função para criar rota de deleção.
+  def delete(conn, %{"id" => id}) do
+    with {:ok, %User{} = user} <- Users.delete(id) do
+      conn
+      |> put_status(:ok)
+      |> render(:delete, user: user)
+    end
+  end
+
   # Função para criar rota de usuário GET/SHOW.
   def show(conn, %{"id" => id}) do
     with {:ok, %User{} = user} <- Users.get(id) do
