@@ -12,13 +12,13 @@ defmodule BananaBank.ViaCep.Client do
   end
 
   # Função para retornar sucesso.
-  defp handle_response({:ok, %Tesla.Env{status: 200, body: %{"erro" => true}}}) do
+  defp handle_response({:ok, %Tesla.Env{status: 200, body: %{erro: true}}}) do
     {:error, :not_found}
   end
 
   # Função para retornar erro na rota.
   defp handle_response({:ok, %Tesla.Env{status: 200, body: body}}) do
-    {:error, body}
+    {:ok, body}
   end
 
   # Função para retornar erro 400.

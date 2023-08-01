@@ -13,18 +13,24 @@ defmodule BananaBankWeb.ErrorJSON do
     %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
   end
 
-  # Função para tratar error da rota Create.
-  def error(%{changeset: changeset}) do
-    %{
-      errors: Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
-    }
-  end
-
   # Função para tratar o erro da rota GET.
   def error(%{status: :not_found}) do
     %{
       status: :not_found,
-      message: "User not found"
+      message: "Resource not found"
+    }
+  end
+
+  def error(%{status: status}) do
+    %{
+      status: status,
+    }
+  end
+
+  # Função para tratar error da rota Create.
+  def error(%{changeset: changeset}) do
+    %{
+      errors: Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
     }
   end
 
