@@ -23,7 +23,7 @@ defmodule BananaBankWeb.ErrorJSON do
 
   def error(%{status: status}) do
     %{
-      status: status,
+      status: status
     }
   end
 
