@@ -12,7 +12,7 @@ defmodule BananaBank.ViaCep.ClientTest do
     test "successfuly returns cep info", %{bypass: bypass} do
       cep = "15355000"
 
-      body = ~s{
+      body = ~s({
         "bairro": "",
         "cep": "15355-000",
         "complemento": "",
@@ -23,12 +23,28 @@ defmodule BananaBank.ViaCep.ClientTest do
         "logradouro": "",
         "siafi": "6479",
         "uf": "SP"
-      }
+      })
 
-      expected_response = "banana"
+      # Resposta esperada.
+      expected_response =
+        {:ok,
+         %{
+           "bairro" => "",
+           "cep" => "15355-000",
+           "complemento" => "",
+           "ddd" => "17",
+           "gia" => "3372",
+           "ibge" => "3518909",
+           "localidade" => "Guzolândia",
+           "logradouro" => "",
+           "siafi" => "6479",
+           "uf" => "SP"
+         }}
 
-      Bypass.expect(bypass, fn conn ->
-        Plug.Conn.resp(conn, 200, body)
+      Bypass.expect(bypass, "GET", "/15355000/json", fn conn ->
+        conn
+        |> Plug.Conn.put_resp_content_type("application/json")
+        |> Plug.Conn.resp(200, body)
       end)
 
       response =
@@ -40,5 +56,5 @@ defmodule BananaBank.ViaCep.ClientTest do
     end
   end
 
-  defp endpoint_url(port), do: "http://localhost:#{port}/"
+  defp endpoint_url(port), do: "http://localhost:#{port}"
 end

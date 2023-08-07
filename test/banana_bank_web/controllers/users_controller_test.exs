@@ -7,10 +7,10 @@ defmodule BananaBankWeb.UsersControllerTest do
   describe "create/2" do
     test "successfully creates an user", %{conn: conn} do
       params = %{
-        name: "João",
-        cep: "12345678",
-        email: "joao@frutas.com",
-        password: "123456"
+        "name" => "João",
+        "cep" => "12345678",
+        "email" => "joao@frutas.com",
+        "password" => "123456"
       }
 
       response =
