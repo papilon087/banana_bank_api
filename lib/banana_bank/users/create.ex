@@ -3,11 +3,17 @@ defmodule BananaBank.Users.Create do
   alias BananaBank.Repo
   alias BananaBank.ViaCep.Client, as: ViaCepClient
 
+  # Função para criar um usuário.
   def call(%{"cep" => cep} = params) do
-    with {:ok, _result} <- ViaCepClient.call(cep) do
+    with {:ok, _result} <- client().call(cep) do
       params
       |> User.changeset()
       |> Repo.insert()
     end
+  end
+
+  #
+  defp client() do
+    Application.get_env(:banana_bank, :via_cep_client, ViaCepClient)
   end
 end
