@@ -15,7 +15,7 @@ defmodule BananaBankWeb.UsersControllerTest do
       "password" => "123456"
     }
 
-    body =  %{
+    body = %{
       "bairro" => "",
       "cep" => "15355-000",
       "complemento" => "",
