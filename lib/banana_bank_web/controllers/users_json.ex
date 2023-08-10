@@ -9,15 +9,6 @@ defmodule BananaBankWeb.UsersJSON do
     }
   end
 
-  # Função para retornar a deleção do usuário.
-  def delete(%{user: user}), do: %{data: data(user)}
-
-  # Função para retornar nossa view do get.
-  def get(%{user: user}), do: %{data: data(user)}
-
-  # Função para retornar a view do update.
-  def update(%{user: user}), do: %{message: "User criado com sucesso!", data: data(user)}
-
   # Função para retornar nosso data formatado.
   defp data(%User{} = user) do
     %{

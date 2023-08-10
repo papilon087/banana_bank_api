@@ -12,5 +12,4 @@ defmodule BananaBank.Repo.Migrations.AddAccountsTable do
     # A nivel de banco é uma função para não inserir nenhuma tablema > que 0.
     create constraint(:accounts, :balance_must_be_positive, check: "balance >= 0")
   end
-
 end
