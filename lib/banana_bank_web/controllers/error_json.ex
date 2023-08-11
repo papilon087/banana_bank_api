@@ -27,6 +27,12 @@ defmodule BananaBankWeb.ErrorJSON do
     }
   end
 
+  def error(%{msg: msg}) do
+    %{
+      message: msg
+    }
+  end
+
   # Função para tratar error da rota Create.
   def error(%{changeset: changeset}) do
     %{
