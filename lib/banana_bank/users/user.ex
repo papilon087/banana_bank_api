@@ -12,7 +12,6 @@ defmodule BananaBank.Users.User do
   # Espelho para nossa tabela.
   schema "users" do
     field :name, :string
-    # Campo Virtual
     field :password, :string, virtual: true
     field :password_hash, :string
     field :email, :string

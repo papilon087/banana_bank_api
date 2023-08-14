@@ -1,7 +1,7 @@
 defmodule BananaBank.Users.Verify do
   alias BananaBank.Users
 
-  # Função para verificar a validação da senha.
+  # Função para verificar a validação da senha do usuário.
   def call(%{"id" => id, "password" => password}) do
     case Users.get(id) do
       {:ok, user} -> verify(user, password)
