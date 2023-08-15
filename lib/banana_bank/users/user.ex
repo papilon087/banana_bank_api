@@ -10,6 +10,7 @@ defmodule BananaBank.Users.User do
   @required_params_update [:name, :email, :cep]
 
   # Espelho para nossa tabela.
+  @derive {Jason.Encoder, except: [:__meta__]}
   schema "users" do
     field :name, :string
     field :password, :string, virtual: true
